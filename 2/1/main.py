@@ -34,9 +34,10 @@ def main():
         index += 4
         opcode = Intcode[index]
 
-    Intcode = list(map(str, Intcode))
-    result = ",".join(Intcode)
-    print(result)
+    print(Intcode[0])
+    #Intcode = list(map(str, Intcode))
+    #result = ",".join(Intcode)
+    # print(result)
 
 
 if __name__ == "__main__":
