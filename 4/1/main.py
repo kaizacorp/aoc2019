@@ -24,5 +24,16 @@ def has_double_digits(integer):
     return False
 
 
+def is_increasing_digits(integer):
+    integer = str(integer)
+    increasing = True
+
+    for first, second in zip(integer[:-1], integer[1:]):
+        if int(first) > int(second):
+            increasing = False
+
+    return increasing
+
+
 if __name__ == "__main__":
     main()
