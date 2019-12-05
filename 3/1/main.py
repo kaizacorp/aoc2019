@@ -10,18 +10,75 @@ def main():
     print(first_wire)
     print(second_wire)
 
+    collisions = []
+
     #   track wire positions in list
+    wire_coordinates = []
+    wire_coordinates.append([])
     #   start from (0,0)
+    position = (0, 0)
+    wire_coordinates[0].append(position)
     #   Process each instruction for wire
-    #       letter for (+ - x y) and iterate over magnitude
-    #       adding coordinate pairs to respective wire list as 'walk' progresses
-    #           check if collision? can own wires collide?
-    #   when magnitude finished: process next instruction in wire list
+    for instruction in first_wire:
+        #   letter for (+ - x y) and iterate over magnitude
+        direction = instruction[0]
+        magnitude = int(instruction[1:])
+        #    adding coordinate pairs to respective wire list as 'walk' progresses
+        while magnitude > 0:
+            if direction == 'U':
+                new_position = (position[0], position[1]+1)
+            elif direction == 'D':
+                new_position = (position[0], position[1]-1)
+            elif direction == 'R':
+                new_position = (position[0]+1, position[1])
+            elif direction == 'L':
+                new_position = (position[0]-1, position[1])
+            wire_coordinates[0].append(new_position)
+            position = new_position
+            magnitude -= 1
+            #   when magnitude finished: process next instruction in wire list
+
+    print(wire_coordinates[0])
 
     #   repeat for the second wire
-    #   if collision with wire 1:
-    #       compute Manhattan distance from origin
-    #       take min so far
+    wire_coordinates.append([])
+    #   start from (0,0)
+    position = (0, 0)
+    wire_coordinates[1].append(position)
+    #   Process each instruction for wire
+    for instruction in second_wire:
+        #   letter for (+ - x y) and iterate over magnitude
+        direction = instruction[0]
+        magnitude = int(instruction[1:])
+        #    adding coordinate pairs to respective wire list as 'walk' progresses
+        while magnitude > 0:
+            if direction == 'U':
+                new_position = (position[0], position[1]+1)
+            elif direction == 'D':
+                new_position = (position[0], position[1]-1)
+            elif direction == 'R':
+                new_position = (position[0]+1, position[1])
+            elif direction == 'L':
+                new_position = (position[0]-1, position[1])
+            wire_coordinates[1].append(new_position)
+            #   if collision with wire 1:
+            if new_position in wire_coordinates[0]:
+                collisions.append(new_position)
+            position = new_position
+            magnitude -= 1
+
+    print(wire_coordinates[1])
+    print(collisions)
+
+    #   compute Manhattan distance from origin
+    closest = sys.maxsize
+    for position in collisions:
+        manhattan = abs(position[0]) + abs(position[1])
+        #   take min so far
+        if manhattan < closest:
+            closest = manhattan
+
+    print(closest)
     # return min intersection
 
 
