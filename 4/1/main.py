@@ -8,10 +8,13 @@ def main():
     upper = int(number_range[0].split("-")[1])
 
     print(lower, upper)
+
     valid = []
 
     for password in range(lower, upper):
-        if has_double_digits(password) and is_increasing_digits(password):
+        doubles = has_double_digits(password)
+        increasing = is_increasing_digits(password)
+        if doubles and increasing:
             valid.append(password)
 
     print(len(valid))
