@@ -16,8 +16,9 @@ def main():
 
     step_size = 4
     while opcode != 99:
+        print_as_input(Intcode)
         if opcode == 1:
-            #print(parameter_modes, opcode)
+            print(parameter_modes, opcode)
             if parameter_modes[2]:
                 a = Intcode[index+1]
             else:
@@ -32,7 +33,7 @@ def main():
             Intcode[dest] = a + b
             step_size = 4
         elif opcode == 2:
-            #print(parameter_modes, opcode)
+            print(parameter_modes, opcode)
             if parameter_modes[2]:
                 a = Intcode[index+1]
             else:
@@ -46,18 +47,35 @@ def main():
             Intcode[dest] = a * b
             step_size = 4
         elif opcode == 3:
-            #print(parameter_modes, opcode)
+            print(parameter_modes, opcode)
             user_value = input("input:  \t ")
             Intcode[Intcode[index+1]] = int(user_value)
             step_size = 1
         elif opcode == 4:
-            #print(parameter_modes, opcode)
+            print(parameter_modes, opcode)
             if parameter_modes[2]:
                 stored_value = Intcode[index+1]
             else:
                 stored_value = Intcode[Intcode[index+1]]
             print("output:", "\t", stored_value)
             step_size = 1
+        elif opcode == 5 or opcode == 6:
+            print(parameter_modes, opcode)
+            if parameter_modes[2]:
+                a = Intcode[index+1]
+            else:
+                a = Intcode[Intcode[index+1]]
+
+            if parameter_modes[1]:
+                b = Intcode[index+2]
+            else:
+                b = Intcode[Intcode[index+2]]
+
+            if (a and opcode == 5) or (not a and opcode == 6):
+                index = b
+                step_size = 0
+            else:
+                step_size = 3
 
         index += step_size
         instruction = Intcode[index]
