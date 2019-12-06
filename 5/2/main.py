@@ -16,8 +16,8 @@ def main():
 
     step_size = 4
     while opcode != 99:
-        print_as_input(Intcode)
-        print(parameter_modes, opcode)
+        # print_as_input(Intcode)
+        # print(parameter_modes, opcode)
         if opcode == 1:
             if parameter_modes[2]:
                 a = Intcode[index+1]
@@ -91,9 +91,9 @@ def main():
                 Intcode[index+3] = stored
             else:
                 Intcode[Intcode[index+3]] = stored
-            print("a:\t", a)
-            print("b:\t", b)
-            print("result:\t", stored)
+            # print("a:\t", a)
+            # print("b:\t", b)
+            # print("result:\t", stored)
             step_size = 4
 
         index += step_size
