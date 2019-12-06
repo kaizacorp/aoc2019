@@ -48,14 +48,14 @@ def main():
         elif opcode == 3:
             user_value = input("input:  \t ")
             Intcode[Intcode[index+1]] = int(user_value)
-            step_size = 1
+            step_size = 2
         elif opcode == 4:
             if parameter_modes[2]:
                 stored_value = Intcode[index+1]
             else:
                 stored_value = Intcode[Intcode[index+1]]
             print("output:", "\t", stored_value)
-            step_size = 1
+            step_size = 2
         elif opcode == 5 or opcode == 6:
             if parameter_modes[2]:
                 a = Intcode[index+1]
