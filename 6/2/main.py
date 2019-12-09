@@ -30,12 +30,41 @@ def main():
                 indirect_orbits += 1
                 planet = parent[0]
 
-    print("Total orbits :",  direct_orbits + indirect_orbits)
-    # print(G.number_of_nodes())
-    # print(G.number_of_edges())
-    # print(G.edges())
-    # print(G.in_degree)
-    # print(G.out_degree)
+    # print("Total orbits :",  direct_orbits + indirect_orbits)
+
+    # find common parent between 'YOU' and 'SAN
+
+    parent_YOU = list(G.successors('YOU'))[0]
+    parent_SAN = list(G.successors('SAN'))[0]
+    # print(parent_YOU, parent_SAN)
+
+    ancestors = []
+
+    while parent_YOU != root:
+        ancestors.append(parent_YOU)
+        parent_YOU = list(G.successors(parent_YOU))[0]
+
+    # print(ancestors)
+
+    while parent_SAN not in ancestors:
+        parent_SAN = list(G.successors(parent_SAN))[0]
+
+    common_ancestor = parent_SAN
+    # print(common_ancestor)
+
+    start_YOU = list(G.successors('YOU'))[0]
+    start_SAN = list(G.successors('SAN'))[0]
+    start = []
+    start.append(start_YOU)
+    start.append(start_SAN)
+
+    min_transfers = 0
+    for parent in start:
+        while parent != common_ancestor:
+            min_transfers += 1
+            parent = list(G.successors(parent))[0]
+
+    print(min_transfers)
 
 
 if __name__ == "__main__":
