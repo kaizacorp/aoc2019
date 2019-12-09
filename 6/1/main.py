@@ -22,10 +22,8 @@ def main():
 
     indirect_orbits = 0
     for planet in G.nodes():
-        # print(planet)
         while not(planet is root):
             parent = list(G.successors(planet))
-            # print(parent)
             if root in parent:
                 planet = root
             else:
