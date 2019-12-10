@@ -1,15 +1,50 @@
 import sys
+from itertools import permutations
 
 
 def main():
     filename = sys.argv[1]
 
-    amp_A = Intcode_computer(filename, [4, 0])
-    amp_B = Intcode_computer(filename, [3, amp_A.output])
+    phases = list(permutations(range(0, 5)))
+
+    thruster_signal = 0
+    for phase in phases:
+        output = 0
+        for sig in phase:
+            amp = Intcode_computer(filename, [sig, output])
+            output = amp.output
+        thruster_signal = max(thruster_signal, output)
+
+    print(thruster_signal)
+
+    """
+    amp_A = Intcode_computer(filename, [3, 0])
+    print(amp_A.output)
+    amp_B = Intcode_computer(filename, [1, amp_A.output])
+    print(amp_B.output)
     amp_C = Intcode_computer(filename, [2, amp_B.output])
-    amp_D = Intcode_computer(filename, [1, amp_C.output])
+    print(amp_C.output)
+    amp_D = Intcode_computer(filename, [4, amp_C.output])
+    print(amp_D.output)
     amp_E = Intcode_computer(filename, [0, amp_D.output])
     print(amp_E.output)
+
+    thruster_signal = 0
+    for a in range(0, 5):
+        for b in range(0, 5):
+            for c in range(0, 5):
+                for d in range(0, 5):
+                    for e in range(0, 5):
+                        A = Intcode_computer(filename, [a, 0])
+                        B = Intcode_computer(filename, [b, A.output])
+                        C = Intcode_computer(filename, [c, B.output])
+                        D = Intcode_computer(filename, [d, C.output])
+                        E = Intcode_computer(filename, [e, D.output])
+                        thruster_signal = max(thruster_signal, E.output)
+                        print(thruster_signal, a, b, c, d, e)
+
+    print(thruster_signal)
+    """
 
 
 class Intcode_computer:
@@ -113,7 +148,7 @@ class Intcode_computer:
         else:
             stored_value = Intcode[Intcode[index+1]]
         # print("output:", "\t", stored_value)
-        self.output = stored_value
+        self.output = int(stored_value)
         step_size = 2
         return step_size
 
